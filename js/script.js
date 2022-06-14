@@ -1,5 +1,4 @@
 "use strict"
-
 document.addEventListener('DOMContentLoaded', function () {
 	const form = document.getElementById('form');
 	form.addEventListener('submit', formSend);
@@ -25,13 +24,16 @@ document.addEventListener('DOMContentLoaded', function () {
 				form.reset();
 				form.classList.remove('sending');
 			} else {
-				alert("Помилка")
+				alert("Помилка");
 				form.classList.remove('sending');
 			}
 		} else {
-			alert("Заповніть обов'язкові поля")
+			alert('Заполните обязательные поля');
 		}
+
 	}
+
+
 	function formValidate(form) {
 		let error = 0;
 		let formReq = document.querySelectorAll('.req');
@@ -41,11 +43,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			formRemoveError(input);
 
 			if (input.classList.contains('email')) {
-				if (emailText(input)) {
+				if (emailTest(input)) {
 					formAddError(input);
 					error++;
 				}
-			} else if(input.getAttribute("type") === "checkbox" && input.checked === false){
+			} else if (input.getAttribute("type") === "checkbox" && input.checked === false) {
 				formAddError(input);
 				error++;
 			} else {
@@ -55,38 +57,41 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			}
 		}
-		return error
+		return error;
 	}
-	
 	function formAddError(input) {
 		input.parentElement.classList.add('error');
 		input.classList.add('error');
 	}
-	
 	function formRemoveError(input) {
 		input.parentElement.classList.remove('error');
 		input.classList.remove('error');
 	}
-
-	function emailText(input) {
+	//Функция теста email
+	function emailTest(input) {
 		return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(input.value);
 	}
-	
+
+	//Получаем инпут file в переменную
 	const formImage = document.getElementById('formImage');
+	//Получаем див для превью в переменную
 	const formPreview = document.getElementById('formPreview');
 
+	//Слушаем изменения в инпуте file
 	formImage.addEventListener('change', () => {
 		uploadFile(formImage.files[0]);
 	});
-	
+
 	function uploadFile(file) {
+		// провераяем тип файла
 		if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
-			alert("Дозволяються тільки зображення");
+			alert('Разрешены только изображения.');
 			formImage.value = '';
 			return;
 		}
+		// проверим размер файла (<2 Мб)
 		if (file.size > 2 * 1024 * 1024) {
-			alert("Фаїл має бути меньше 2 МБ");
+			alert('Файл должен быть менее 2 МБ.');
 			return;
 		}
 
@@ -95,8 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
 			formPreview.innerHTML = `<img src="${e.target.result}" alt="Фото">`;
 		};
 		reader.onerror = function (e) {
-			alert("Помилка");
+			alert('Ошибка');
 		};
-		reader.readAsDataURL(file)
+		reader.readAsDataURL(file);
 	}
 });
