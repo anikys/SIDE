@@ -7,8 +7,9 @@
 
 	$mail = new PHPMailer(true);
 	$mail->CharSet = 'UTF-8';
-	$mail->setLanguage('ua', 'phpmailer/language/');
+	$mail->setLanguage('uk', 'phpmailer/language/');
 	$mail->IsHTML(true);
+
 
 	//От кого письмо
 	$mail->setFrom('olih.a@icoud.com', 'Фрилансер по жизни');

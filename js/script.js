@@ -1,5 +1,6 @@
 "use strict"
 
+
 document.addEventListener('DOMContentLoaded', function () {
 	const form = document.getElementById('form');
 	form.addEventListener('submit', formSend);
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			let response = await fetch('sendmail.php', {
 				method: 'POST',
 				body: formData
-			});
+			})
 			if (response.ok) {
 				let result = await response.json();
 				alert(result.message);
@@ -100,4 +101,3 @@ document.addEventListener('DOMContentLoaded', function () {
 		reader.readAsDataURL(file)
 	}
 });
-
